@@ -1,14 +1,12 @@
 import threading
 import time
 import random
-
-# Atributos inicio
+#Variables inicio
 num_filosofos = 5
 tenedores = [False] * num_filosofos
 condicion = threading.Condition()
-
+#Metodo que corrobora la disponibilidad de los tenedores y los marca como en uso en caso de estar disponibles
 def coger_tenedores(i):
-    #El ciclo de vida de un filósofo que alterna entre pensar y comer
     with condicion:
         # Esperar mientras cualquiera de los tenedores está en uso
         while tenedores[i] or tenedores[i - 1]:
@@ -16,9 +14,8 @@ def coger_tenedores(i):
         # Marcar ambos tenedores como en uso
         tenedores[i] = tenedores[i - 1] = True
 
-#El filósofo deja los tenedores izquierdo y derecho.
+#Metodo que deja los tenedores libres
 def dejar_tenedores(i):
-    
     with condicion:
         # Marcar ambos tenedores como libres
         tenedores[i] = tenedores[i - 1] = False
